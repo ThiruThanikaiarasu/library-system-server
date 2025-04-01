@@ -1,11 +1,14 @@
-import { userResolvers } from "./userResolver";
+import { authorResolvers } from "./authorResolver"
+import { userResolvers } from "./userResolver"
 
 const resolvers = {
     Query: {
-        ...userResolvers.Query
+        ...userResolvers.Query,
+        ...authorResolvers.Query
     },
     Mutation: {
-        ...userResolvers.Mutation
+        ...userResolvers.Mutation,
+        ...authorResolvers.Mutation
     }
 }
 
