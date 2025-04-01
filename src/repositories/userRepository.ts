@@ -9,6 +9,10 @@ const getUserById = (id: string) => {
     return User.findById(id)
 }
 
+const getUserByEmailFromDB = (email: string) => {
+    return User.findOne({ email })
+}
+
 const createUserInDB = async (input: { name: string, email: string, password: string }) => {
     const hashedPassword = await hashPassword(input.password) 
     const user = new User({
@@ -24,5 +28,6 @@ const createUserInDB = async (input: { name: string, email: string, password: st
 export {
     getAllUsers,
     getUserById,
+    getUserByEmailFromDB,
     createUserInDB,
 }

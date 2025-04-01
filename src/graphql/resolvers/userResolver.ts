@@ -1,15 +1,16 @@
-import { createUserInDB, getAllUsers, getUserById } from '../../repositories/userRepository'
+import { getAllUsers, getUserById } from '../../repositories/userRepository'
+import { createUser } from '../../services/userService'
 
 interface UserArgs {
     id: string
 }
 
 interface CreateUserArgs {
-    input: {
-        name: string
-        email: string
-        password: string
-    }
+
+    name: string
+    email: string
+    password: string
+
 }
 
 const userResolvers = {
@@ -23,12 +24,13 @@ const userResolvers = {
     },
 
     Mutation: {
-        createUser: async (_: unknown, { input }: CreateUserArgs) => {
-            return await createUserInDB(input)
+        createUser: async (_: unknown, { input }: { input: CreateUserArgs}) => {
+            return await createUser(input)
         },
     },
 }
 
 export {
+    CreateUserArgs,
     userResolvers
 }
