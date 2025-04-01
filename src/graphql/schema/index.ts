@@ -27,6 +27,15 @@ const typeDefs = `
         updatedAt: String!
     }
 
+    type BorrowedBook {
+        _id: ID!
+        book: Book!
+        user: User!
+        borrowDate: String!
+        returnDate: String
+        status: String!
+    }
+
     type Query {
         users: [User!]!
         user(_id: String!): User
@@ -44,18 +53,14 @@ const typeDefs = `
 
     type Mutation {
         createUser(input: CreateUserInput!): User
-    }
-
-    type Mutation {
         createAuthor(input: AuthorInput!): Author!
         updateAuthor(_id: ID!, input: AuthorInput!): Author!
         deleteAuthor(_id: ID!): Boolean!
-    }
-
-    type Mutation {
         addBook(input: BookInput!): Book!
         updateBook(_id: ID!, input: BookInput!): Book!
         deleteBook(_id: ID!): Boolean!
+        borrowBook(book: ID!, user: ID!): BorrowedBook!
+        returnBook(book: ID!, user: ID!): BorrowedBook!
     }
 
     input CreateUserInput {

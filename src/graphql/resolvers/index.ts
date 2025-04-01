@@ -1,5 +1,6 @@
 import { authorResolvers } from "./authorResolver"
 import { bookResolvers } from "./bookResolver"
+import { borrowBookResolvers } from "./borrowBookResolver"
 import { userResolvers } from "./userResolver"
 
 const resolvers = {
@@ -11,7 +12,8 @@ const resolvers = {
     Mutation: {
         ...userResolvers.Mutation,
         ...authorResolvers.Mutation,
-        ...bookResolvers.Mutation
+        ...bookResolvers.Mutation,
+        ...borrowBookResolvers.Mutation
     }
 }
 
