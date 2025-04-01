@@ -16,8 +16,18 @@ interface BookInput {
 
 const bookResolvers = {
     Query: {
-        books: () => {
-            return getAllBooksFromDB()
+        books: async (_: any, { author, available }: { author?: string; available?: boolean }) => {
+            const filter: any = {};
+
+            if (author) {
+                filter.author = author;
+            }
+
+            if (available !== undefined) {
+                filter.status = available ? 'Returned' : 'Borrowed'
+            }
+
+            return await getAllBooksFromDB(filter)
         },
         book: (_: unknown, { _id }: BookArgs) => {
             return getABookByIdFromDB(_id)

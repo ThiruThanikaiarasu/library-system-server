@@ -2,9 +2,56 @@ import { GraphQLError } from "graphql"
 import { BookInput } from "../graphql/resolvers/bookResolver"
 import { Book } from "../models/bookModel"
 
-const getAllBooksFromDB = () => {
-    return Book.find().populate('author')
+const getAllBooksFromDB = async (filter: any) => {
+    console.log(filter)
+    const aggregationPipeline: any[] = [
+        {
+            $lookup: {
+                from: "borrowedbooks", 
+                localField: "_id",
+                foreignField: "book", 
+                as: "borrowedDetails",
+            }
+        },
+        {
+            $addFields: {
+                isBorrowed: {
+                    $cond: {
+                        if: { $gt: [{ $size: "$borrowedDetails" }, 0] }, 
+                        then: "Borrowed",
+                        else: "Returned",
+                    }
+                }
+            }
+        },
+        {
+            $match: {} 
+        },
+        {
+            $lookup: {
+                from: "authors", 
+                localField: "author",
+                foreignField: "_id",
+                as: "author"
+            }
+        },
+        {
+            $unwind: "$author"
+        }
+    ]
+
+    if (filter.status) {
+        aggregationPipeline[2].$match.isBorrowed = filter.status
+    }
+    if (filter.author) {
+        aggregationPipeline[2].$match["author._id"] = filter.author
+    }
+
+    const books = await Book.aggregate(aggregationPipeline)
+
+    return books
 }
+
 
 const getABookByIdFromDB = (_id: string) => {
     return Book.findById(_id).populate('author')

@@ -39,16 +39,11 @@ const typeDefs = `
     type Query {
         users: [User!]!
         user(_id: String!): User
-    }
-
-    type Query {
         authors: [Author!]!
         author(_id: ID!): Author
-    }
-
-    type Query {
-        books: [Book!]!
+        books(author: ID, available: Boolean): [Book!]!
         book(_id: ID!): Book!
+
     }
 
     type Mutation {
