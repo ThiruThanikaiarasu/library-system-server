@@ -18,8 +18,8 @@ const createAuthor = async (input: AuthorInput) => {
 
 }
 
-const updateAuthor = async (id: string, input: AuthorInput) => {
-    const existingAuthor = await getAuthorByIdFromDB(id)
+const updateAuthor = async (_id: string, input: AuthorInput) => {
+    const existingAuthor = await getAuthorByIdFromDB(_id)
 
     if (!existingAuthor) {
         throw new GraphQLError("Author not found", {
@@ -40,11 +40,11 @@ const updateAuthor = async (id: string, input: AuthorInput) => {
         }
     }
 
-    return updateAuthorInDB(id, input)
+    return updateAuthorInDB(_id, input)
 }
 
-const deleteAuthor = async (id: string) => {
-    const existingAuthor = await getAuthorByIdFromDB(id)
+const deleteAuthor = async (_id: string) => {
+    const existingAuthor = await getAuthorByIdFromDB(_id)
 
     if (!existingAuthor) {
         throw new GraphQLError("Author not found", {
@@ -54,7 +54,7 @@ const deleteAuthor = async (id: string) => {
         })
     }
 
-    return deleteAuthorFromDB(id)
+    return deleteAuthorFromDB(_id)
 }
 
 export {

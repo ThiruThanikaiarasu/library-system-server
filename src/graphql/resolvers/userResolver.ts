@@ -2,7 +2,7 @@ import { getAllUsers, getUserById } from '../../repositories/userRepository'
 import { createUser } from '../../services/userService'
 
 interface UserArgs {
-    id: string
+    _id: string
 }
 
 interface CreateUserArgs {
@@ -18,8 +18,8 @@ const userResolvers = {
         users: async () => {
             return await getAllUsers()
         },
-        user: async(_: unknown, { id } : UserArgs) => {
-            return await getUserById(id)
+        user: async(_: unknown, { _id } : UserArgs) => {
+            return await getUserById(_id)
         }
     },
 

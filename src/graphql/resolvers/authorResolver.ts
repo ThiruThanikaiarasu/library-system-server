@@ -2,7 +2,7 @@ import { getAllAuthorsFromDB, getAuthorByIdFromDB } from "../../repositories/aut
 import { createAuthor, deleteAuthor, updateAuthor } from "../../services/authorService"
 
 interface AuthorArgs {
-    id: string
+    _id: string
 }
 
 interface AuthorInput {
@@ -16,8 +16,8 @@ const authorResolvers = {
         authors: async () => {
             return getAllAuthorsFromDB()
         },
-        author: async (_: unknown, { id }: AuthorArgs) => {
-            return getAuthorByIdFromDB(id)
+        author: async (_: unknown, { _id }: AuthorArgs) => {
+            return getAuthorByIdFromDB(_id)
         }
     },
     
@@ -25,11 +25,11 @@ const authorResolvers = {
         createAuthor: async (_: unknown, { input }: { input: AuthorInput }) => {
             return createAuthor(input)
         },
-        updateAuthor: async (_: unknown, { id, input }: { id: string, input: AuthorInput }) => {
-            return updateAuthor(id, input)
+        updateAuthor: async (_: unknown, { _id, input }: { _id: string, input: AuthorInput }) => {
+            return updateAuthor(_id, input)
         },
-        deleteAuthor: async (_: unknown, { id }: AuthorArgs) => {
-            return deleteAuthor(id)
+        deleteAuthor: async (_: unknown, { _id }: AuthorArgs) => {
+            return deleteAuthor(_id)
         }
     }
 }

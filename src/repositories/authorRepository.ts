@@ -11,16 +11,16 @@ const getAuthorByEmailFromDB = (email: string) => {
     return Author.findOne({ email })
 }
 
-const getAuthorByIdFromDB = (id: string) => {
-    return Author.findById(id)
+const getAuthorByIdFromDB = (_id: string) => {
+    return Author.findById(_id)
 }
 
 const createANewAuthorInDB = (input: AuthorInput) => {
     return Author.create(input)
 }
 
-const updateAuthorInDB = async (id: string, input: AuthorInput) => {
-    const updatedAuthor = await Author.findByIdAndUpdate(id, input, { new: true })
+const updateAuthorInDB = async (_id: string, input: AuthorInput) => {
+    const updatedAuthor = await Author.findByIdAndUpdate(_id, input, { new: true })
 
     if (!updatedAuthor) {
         throw new GraphQLError("Failed to update author", {
@@ -33,8 +33,8 @@ const updateAuthorInDB = async (id: string, input: AuthorInput) => {
     return updatedAuthor
 }
 
-const deleteAuthorFromDB = async (id: string) => {
-    const deletedAuthor = await Author.findByIdAndDelete(id)
+const deleteAuthorFromDB = async (_id: string) => {
+    const deletedAuthor = await Author.findByIdAndDelete(_id)
 
     if (!deletedAuthor) {
         throw new GraphQLError("Failed to delete author", {

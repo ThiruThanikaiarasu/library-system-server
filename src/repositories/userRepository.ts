@@ -5,8 +5,8 @@ const getAllUsers = () => {
     return User.find()
 }
 
-const getUserById = (id: string) => {
-    return User.findById(id)
+const getUserById = (_id: string) => {
+    return User.findById(_id)
 }
 
 const getUserByEmailFromDB = (email: string) => {
